@@ -1,9 +1,12 @@
 <template>
+<!-- Container -->
   <div
     class="transition-all duration-500 bg-zinc-800 w-full h-screen flex justify-center items-center flex-col"
   >
+  <!-- Title -->
     <h1 class="font-bold text-7xl text-green-200">Todo App</h1>
-    <div
+   <!-- Add Todo Container -->
+   <div
       class="input my-12 w-full px-14 lg:px-56 flex flex-wrap sticky top-0 left-0 z-10"
     >
       <input
@@ -50,6 +53,7 @@ export default {
   data() {
     return {
       newTodo: "",
+      // Default Todo's
       Todos: [
         "Build a Todo App wiht Angular",
         "Build a Todo App with Vue.js",
