@@ -1,27 +1,30 @@
 <template>
-<!-- Container -->
+  <!-- Container -->
   <div
-    class="transition-all duration-500 bg-zinc-800 w-full h-screen flex justify-center items-center flex-col"
+    class="transition-all duration-500 w-full flex justify-center items-center flex-col h-full"
   >
-  <!-- Title -->
-    <h1 class="font-bold text-7xl text-green-200">Todo App</h1>
-   <!-- Add Todo Container -->
-   <div
-      class="input my-12 w-full px-14 lg:px-56 flex flex-wrap sticky top-0 left-0 z-10"
+    <div
+      class="topContainer w-full sticky top-0 left-0 z-10 text-center bg-slate-900 pt-20 pb-3"
     >
-      <input
-        class="w-full lg:w-4/5 py-3 px-8 rounded-lg outline-none border-green-600 border-2 hover:border-green-300"
-        type="text"
-        placeholder="Type a Todo . . ."
-        v-model="newTodo"
-      />
-      <button
-        class="w-full lg:w-1/5 cursor-pointer bg-green-500 text-white font-bold py-3 px-8 rounded-lg"
-        @click="addTodo()"
-      >
-        Add Todo
-      </button>
+      <!-- Title -->
+      <h1 class="font-bold text-7xl text-green-300">Todo App</h1>
+      <!-- Add Todo Container -->
+      <div class="input my-12 w-full px-14 lg:px-56 flex flex-wrap">
+        <input
+          class="w-full lg:w-4/5 py-3 px-8 outline-none border-none"
+          type="text"
+          placeholder="Type a Todo . . ."
+          v-model="newTodo"
+        />
+        <button
+          class="w-full lg:w-1/5 cursor-pointer bg-green-500 text-white font-bold py-3 px-8"
+          @click="addTodo()"
+        >
+          Add Todo
+        </button>
+      </div>
     </div>
+
     <!-- Todo's Container -->
     <ul class="w-full px-14 lg:px-56">
       <!-- Todos -->
@@ -30,7 +33,7 @@
         v-for="(index, Todo) in Todos"
         :key="Todo.id"
       >
-        {{ Todo }} - {{ index }}
+        {{ Todo + 1 }} - {{ index }}
         <!-- Close Icon -->
         <box-icon
           name="x-circle"
@@ -54,11 +57,7 @@ export default {
     return {
       newTodo: "",
       // Default Todo's
-      Todos: [
-        "Build a Todo App wiht Angular",
-        "Build a Todo App with Vue.js",
-        "Build a Todo App with React",
-      ],
+      Todos: ["First Todo . . ."],
     };
   },
   methods: {
@@ -66,12 +65,19 @@ export default {
       if (this.newTodo == "") {
         alert("Input is Empty");
       } else {
+        // Push New Todo To Todos List
         this.Todos.push(this.newTodo);
+        // Save Todo In Local Storage
+        localStorage.setItem("Todo", [this.newTodo]);
+        // Clean Input
         this.newTodo = "";
       }
     },
     removeTodo(index) {
+      // Remove Todo by Id
       this.Todos.splice(index, 1);
+      // Remove Todo From Local Storage
+      localStorage.removeItem(index);
     },
   },
 };
