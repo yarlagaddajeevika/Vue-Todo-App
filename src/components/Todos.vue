@@ -4,7 +4,7 @@
     class="transition-all duration-500 w-full flex justify-center items-center flex-col h-full"
   >
     <div
-      class="topContainer w-full sticky top-0 left-0 z-10 text-center bg-slate-900 pt-20 pb-3"
+      class="topContainer w-full sticky top-0 left-0 z-10 text-center bg-gray-800 pt-20 pb-3"
     >
       <!-- Title -->
       <h1 class="font-bold text-7xl text-green-300">Todo App</h1>
@@ -33,13 +33,26 @@
         :key="Todo.id"
       >
         {{ Todo + 1 }} - {{ index }}
-        <!-- Close Icon -->
-        <box-icon
-          name="x-circle"
-          color="white"
-          class="bg-red-500 absolute right-3 top-4 rounded-full cursor-pointer"
-          @click="removeTodo(index)"
-        ></box-icon>
+
+        <!-- Icon Box -->
+        <div class="absolute right-3 top-2 mt-2 px-3 bg-green-50">
+          <!-- Check Icon -->
+          <box-icon
+            type="solid"
+            class="cursor-pointer mr-3"
+            @click="removeTodo(index)"
+            name="check-circle"
+            color="green"
+            with="36"
+          ></box-icon>
+          <!-- Remove Icon -->
+          <box-icon
+            name="trash"
+            color="gray"
+            class="cursor-pointer"
+            @click="removeTodo(index)"
+          ></box-icon>
+        </div>
       </li>
     </ul>
   </div>
@@ -62,7 +75,7 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodo == "") {
-        console.log("Empty Todo");
+        this.newTodo = "Nothing to do . . .";
       } else {
         // Push New Todo To Todos List
         this.Todos.push(this.newTodo);
