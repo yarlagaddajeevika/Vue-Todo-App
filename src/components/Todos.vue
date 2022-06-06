@@ -24,7 +24,6 @@
         </button>
       </div>
     </div>
-
     <!-- Todo's Container -->
     <ul class="w-full px-14 lg:px-56">
       <!-- Todos -->
@@ -63,22 +62,28 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodo == "") {
-        alert("Input is Empty");
+        console.log("Empty Todo");
       } else {
         // Push New Todo To Todos List
         this.Todos.push(this.newTodo);
         // Save Todo In Local Storage
-        localStorage.setItem("Todo", [this.newTodo]);
-        // Clean Input
+        localStorage.setItem("Todos", JSON.stringify(this.Todos));
+        // Clear Input
         this.newTodo = "";
       }
     },
     removeTodo(index) {
-      // Remove Todo by Id
+      // Remove Todo by Index
       this.Todos.splice(index, 1);
       // Remove Todo From Local Storage
-      localStorage.removeItem(index);
+      localStorage.setItem("Todos", JSON.stringify(this.Todos));
     },
+  },
+  created: function () {
+    // Get Todos From Local Storage
+    this.Todos = JSON.parse(localStorage.getItem("Todos"));
+    // Assign Todo's To Todos List
+    this.Todos = this.Todos || [];
   },
 };
 </script>
